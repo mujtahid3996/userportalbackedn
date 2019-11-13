@@ -1,32 +1,65 @@
 const express = require('express');
 const bodyparser = require('body-parser');
-
+const knex = require('knex')
 const app = express();
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
-
+const database = knex ({
+    client: 'pg',
+    connection: {
+      host : '127.0.0.1',
+      user : 'postgres',
+      password : 'test123',
+      database : 'test'
+    }
+  });
 app.use(cors());
 app.use(bodyparser.json());
 app.get('/', ( req,res)=>{
+    console.log(req.body.date)
     res.send('working');
-} )
+})
 app.post('/Signin',(req,res) => {
-    if(req.body.email === 'aaa@gmail.com')
-         res.status(200).json('wow');
-    else
-        res.status(400).json('oops');
+    database.select('email','password').from('users')
+    .where('email','=',req.body.email)
+    .then(data => {
+        const  isvalid = bcrypt.compareSync(req.body.password,data[0].password);
+        if(isvalid)
+        {   
+            return database.select('*').from('users')
+                .where('email','=',req.body.email)
+                .then(user => {
+                    console.log(user);
+                    res.json(user[0])
+                })
+                .catch(err => res.status(400).json('unable to get user'))
+        }
+        else
+        {
+            res.status(400).json('wrong credential')
+        }
+
+    })
 })
 app.post('/Register',(req,res) =>{
-    let user = {
-        firstname :req.body.firstname,
-        lastname:req.body.lastname,
-        email:req.body.email,
-        address:req.body.address,
-        phone:req.body.phone,
-        date:req.body.date
-    }
-    res.status(200).json(user);
-    
+    const { firstname, lastname,email,address,phone,date,password} =req.body;
+    const hash = bcrypt.hashSync(password);
+    database('users').
+    returning('*').
+    insert({
+       email: email,
+       firstname:firstname,
+       lastname:lastname,
+       address:address,
+       phone:phone,
+       password:hash,
+       birthday:date
+     
+    }).then(user => {
+        console.log(user[0])
+        res.status(200).json(user[0]);
+    })  
+    .catch(err => res.status(400).json(err))
 })
 
-app.listen(3000)
+app.listen(3000);
