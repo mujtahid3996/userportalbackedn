@@ -71,7 +71,7 @@ app.post('/Changepassword',(req,res) => {
         { 
             return database('users').update('password',bcrypt.hashSync(req.body.newpassword))
             .then(user =>{
-                
+
                 res.status(200).json('Changedsuccessfully')
             })
             .catch( err => res.status(400).json('unable to Changepassword'))   
@@ -82,5 +82,27 @@ app.post('/Changepassword',(req,res) => {
         }
     })
 })
-
+app.post('/Adminlogin',(req,res)=>{
+    if(req.body.email === "admin@localhost.local" && req.body.password === "admin")
+    {
+        res.status(200).json('welcomeadmin');
+    }
+    else
+    {
+        res.status(400).json('oops,sorry');
+    }
+})
+app.post('/getusers', (req,res) => {
+    if(req.body.email==="admin@localhost.local"){
+    return database.select('firstname','phone','email','address').from('users')
+    .returning('*')
+    .then(users =>{
+        console.log(users)
+        res.json(users)
+    }) 
+    .catch(err => res.status(400).json('errrorr'));
+}
+    else
+    res.status(400).json('errror fetching data');
+})
 app.listen(3000);
