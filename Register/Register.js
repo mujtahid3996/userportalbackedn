@@ -9,8 +9,12 @@ const handleRegister = (req,res,database,bcrypt,api) => {
         api.check(checkQuery)
         .then(result => result.json()) 
         .then(data => {
-            if(data.mx_found === true && smtp_check===true)
-                emailisvalid =true;
+            if(data.mx_found === true && data.smtp_check===true)
+                {
+                    console.log(data.mx_found);
+                    console.log(data.smtp_check);
+                    emailisvalid =true;
+                }
             else
                 emailisvalid =false;
         })
