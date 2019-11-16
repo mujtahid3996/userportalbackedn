@@ -25,7 +25,7 @@ app.get('/', ( req,res)=>{
 })
 app.post('/Signin',(req,res) => signin.Signin(req,res,bcrypt,database))
 app.post('/Register',(req,res) => {register.handleRegister(req,res,database,bcrypt)})
-app.post('/Changepassword',(req,res) => changepassword.Changepassword(req,res,database,bcrypt))
-app.post('/Adminlogin',(req,res)=>adminlogin.adminlogin(req,res))
-app.post('/getusers', (req,res) => getusers.getusers(req,res,database))
-app.listen(3000);
+app.post('/Changepassword',(req,res) => {changepassword.Changepassword(req,res,database,bcrypt)})
+app.post('/Adminlogin',(req,res)=>{adminlogin.adminlogin(req,res)})
+app.post('/getusers', (req,res) =>{ getusers.getusers(req,res,database)})
+app.listen(process.env.PORT || 3000);

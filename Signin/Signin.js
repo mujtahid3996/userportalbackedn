@@ -1,4 +1,4 @@
-const Signin = (req,res,database,bcrypt) => {
+const Signin = (req,res,bcrypt,database) => {
     database.select('email','password').from('users')
     .where('email','=',req.body.email)
     .then(data => {
