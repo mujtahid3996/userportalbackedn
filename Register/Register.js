@@ -2,31 +2,15 @@ const handleRegister = (req,res,database,bcrypt,api) => {
     const { firstname, lastname,email,address,phone,date,password} =req.body;
     if(!firstname || !lastname || !email || !address ||!phone ||!password||!date)
         return res.status(400).json('incorrectform form submission');
-        var emailisvalid =false; 
         var checkQuery = {
             email: email
         };
-        api.check(checkQuery)
-        .then(result => result.json()) 
-        .then(data => {
-            if(data.mx_found === true && data.smtp_check===true)
-                {
-                    console.log(data.mx_found);
-                    console.log(data.smtp_check);
-                    emailisvalid =true;
-                }
-            else
-                emailisvalid =false;
-        })
-        .catch(err => res.status(400).json('invalidemail'))
-    if(emailisvalid)
-    {
-        console.log('email ok');
-    }
-    else
-    {
-        return res.status(400).json('wrong email enterd')
-    }
+        api.check(checkQuery, function (err, result) {
+            if (err) {
+                return console.log('Check Callback (Error): ' + JSON.stringify(err));
+            }
+            console.log('Check Callback (Result): ' + JSON.stringify(result.length));
+        });
     const hash = bcrypt.hashSync(password);
     database('users').
     returning('*').
