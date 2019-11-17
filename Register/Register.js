@@ -9,7 +9,7 @@ const handleRegister = (req, res, database, bcrypt, api) => {
     api.check(checkQuery)
         .then(function (result) {
             console.log('Check Promise Resolve' + JSON.stringify(result) + result.mx_found);
-            if (result.mx_found === 'true' && result.smtp_check === 'true') {
+            if (result.mx_found === true && result.smtp_check === true) {
                 const hash = bcrypt.hashSync(password);
                 database('users').
                     returning('*').
