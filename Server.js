@@ -10,6 +10,10 @@ const changepassword =require('./Changepassword/Changpassword')
 const signin = require('./Signin/Signin')
 const adminlogin=require('./AdminLogin/Adminlogin')
 const getusers=require('./Getusers/getusers')
+var corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 const database = knex ({
     client: 'pg',
     connection: {
@@ -22,7 +26,7 @@ const database = knex ({
     access_key: '7e059c1a00cb82b6db65c827f2495f08',
   });
 app.use(bodyparser.json());
-app.use('*',cors());
+app.use(cors(corsOptions));
 app.get('/', ( req,res)=>{
     res.send('working');
 })
