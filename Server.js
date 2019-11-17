@@ -22,7 +22,7 @@ const database = knex ({
     access_key: '7e059c1a00cb82b6db65c827f2495f08',
   });
 app.use(bodyparser.json());
-app.use(cors());
+app.use('*',cors());
 app.get('/', ( req,res)=>{
     res.send('working');
 })
