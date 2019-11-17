@@ -10,8 +10,23 @@ const changepassword =require('./Changepassword/Changpassword')
 const signin = require('./Signin/Signin')
 const adminlogin=require('./AdminLogin/Adminlogin')
 const getusers=require('./Getusers/getusers')
+var allowedOrigins = ['http://localhost:3000',
+                      'https://mujtahids-user-portal.herokuapp.com'];
+
 app.use(bodyparser.json());
-app.use(cors());
+app.use(cors({
+  origin: function(origin, callback){
+    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 app.options('*',cors());
 const database = knex ({
     client: 'pg',
