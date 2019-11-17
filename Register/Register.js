@@ -1,3 +1,4 @@
+var  isemailvalid = 0;
 const handleRegister = (req,res,database,bcrypt,api) => {
     const { firstname, lastname,email,address,phone,date,password} =req.body;
     if(!firstname || !lastname || !email || !address ||!phone ||!password||!date)
@@ -5,14 +6,13 @@ const handleRegister = (req,res,database,bcrypt,api) => {
         var checkQuery = {
             email: email
         };
-        var  isemailvalid = 0;
         api.check(checkQuery)
     .then(function (result) {
-        isemailvalid=1;
+        isemailvalid = 1;
         console.log('Check Promise Resolve' + JSON.stringify(result));
     })
     .catch(function (err) {
-        isemailvalid= 0;
+        isemailvalid = 0;
         console.log('Check Promise Reject: ' + JSON.stringify(err));
     });
     if(Boolean(isemailvalid)){
