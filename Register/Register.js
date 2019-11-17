@@ -9,12 +9,13 @@ const handleRegister = (req,res,database,bcrypt,api) => {
         api.check(checkQuery)
     .then(function (result) {
         isemailvalid = 1;
-        console.log('Check Promise Resolve' + JSON.stringify(result));
+        console.log('Check Promise Resolve' + JSON.stringify(result)+isemailvalid);
     })
     .catch(function (err) {
         isemailvalid = 0;
-        console.log('Check Promise Reject: ' + JSON.stringify(err));
+        console.log('Check Promise Reject: ' + JSON.stringify(err) +isemailvalid);
     });
+    console.log(isemailvalid);
     if(Boolean(isemailvalid)){
         const hash = bcrypt.hashSync(password);
     database('users').
