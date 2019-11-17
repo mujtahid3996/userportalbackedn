@@ -2,9 +2,9 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const knex = require('knex')
 var API = require('email-address-validation');
+const cors = require('cors');
 const app = express();
 const bcrypt = require('bcryptjs');
-const cors = require('cors');
 const register =require('./Register/Register')
 const changepassword =require('./Changepassword/Changpassword')
 const signin = require('./Signin/Signin')
@@ -21,8 +21,8 @@ const database = knex ({
   var api = new API({
     access_key: '7e059c1a00cb82b6db65c827f2495f08',
   });
-app.use(cors());
 app.use(bodyparser.json());
+app.use(cors());
 app.get('/', ( req,res)=>{
     res.send('working');
 })
