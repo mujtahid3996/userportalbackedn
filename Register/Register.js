@@ -15,8 +15,8 @@ const handleRegister = (req,res,database,bcrypt,api) => {
         isemailvalid = 0;
         console.log('Check Promise Reject: ' + JSON.stringify(err) +isemailvalid);
     });
-    console.log(isemailvalid);
-    if(Boolean(isemailvalid)){
+    console.log("email" +isemailvalid);
+    if(Boolean(isemailvalid)) {
         const hash = bcrypt.hashSync(password);
     database('users').
     returning('*').
@@ -36,7 +36,9 @@ const handleRegister = (req,res,database,bcrypt,api) => {
     .catch(err => res.status(400).json(err))
     }
     else
-     res.status(400).json('wrong email entered');
+        {
+            res.status(400).json('wrong email entered');
+    }
 }
 
 module.exports = {
