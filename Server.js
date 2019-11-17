@@ -17,9 +17,15 @@ const database = knex ({
    
   }
 });
-const app = express();                      
-app.use(cors({credentials:true,origin:true}));
-app.use(bodyparser.json());
+const app = express();
+app.use(bodyparser.json());                      
+app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
   var api = new API({
     access_key: '7e059c1a00cb82b6db65c827f2495f08',
   });
