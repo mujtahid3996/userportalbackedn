@@ -9,13 +9,13 @@ const Signin = (req,res,bcrypt,database) => {
                 .where('email','=',req.body.email)
                 .then(user => {
                     console.log(user);
-                    res.json(user[0])
+                    res.header("Access-Control-Allow-Origin", "*").json(user[0])
                 })
-                .catch(err => res.status(400).json('unable to get user'))
+                .catch(err => res.status(400).header("Access-Control-Allow-Origin", "*").json('unable to get user'))
         }
         else
         {
-            res.status(400).json('wrong credential')
+            res.status(400).header("Access-Control-Allow-Origin", "*").json('wrong credential')
         }
 
     })
