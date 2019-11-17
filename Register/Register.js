@@ -5,13 +5,15 @@ const handleRegister = (req,res,database,bcrypt,api) => {
         var checkQuery = {
             email: email
         };
-        var isemailvalid=true;
+        var isemailvalid=Boolean;
         api.check(checkQuery, function (err, result) {
             if (err) {
-                isemailvalid=false;
-                return console.log('Check Callback (Error): ' + JSON.stringify(err));    
+                isemailvalid = false;
+                return console.log('Check Callback (Error): ' + JSON.stringify(err)+isemailvalid);    
             }
+            isemailvalid=true;
             console.log('Check Callback (Result): ' + JSON.stringify(result.length));
+
         });
     if(isemailvalid){
         const hash = bcrypt.hashSync(password);
