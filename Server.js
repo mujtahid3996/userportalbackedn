@@ -15,6 +15,7 @@ const database = knex ({
     connection: {
       connectionString: process.env.DATABASE_URL,
       ssl: true,
+     
     }
   });
   var api = new API({

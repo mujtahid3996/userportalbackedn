@@ -5,13 +5,16 @@ const handleRegister = (req,res,database,bcrypt,api) => {
         var checkQuery = {
             email: email
         };
+        var isemailvalid=true;
         api.check(checkQuery, function (err, result) {
             if (err) {
-                return console.log('Check Callback (Error): ' + JSON.stringify(err));
+                isemailvalid=false;
+                return console.log('Check Callback (Error): ' + JSON.stringify(err));    
             }
             console.log('Check Callback (Result): ' + JSON.stringify(result.length));
         });
-    const hash = bcrypt.hashSync(password);
+    if(isemailvalid){
+        const hash = bcrypt.hashSync(password);
     database('users').
     returning('*').
     insert({
@@ -28,6 +31,9 @@ const handleRegister = (req,res,database,bcrypt,api) => {
         res.status(200).json(user[0]);
     })  
     .catch(err => res.status(400).json(err))
+    }
+    else
+     res.status(400).json('wrong email entered');
 }
 
 module.exports = {
