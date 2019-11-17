@@ -10,7 +10,9 @@ const changepassword =require('./Changepassword/Changpassword')
 const signin = require('./Signin/Signin')
 const adminlogin=require('./AdminLogin/Adminlogin')
 const getusers=require('./Getusers/getusers')
-
+app.use(bodyparser.json());
+app.use(cors());
+app.options('*',cors());
 const database = knex ({
     client: 'pg',
     connection: {
@@ -22,8 +24,6 @@ const database = knex ({
   var api = new API({
     access_key: '7e059c1a00cb82b6db65c827f2495f08',
   });
-app.use(bodyparser.json());
-app.use(cors());
 app.get('/', ( req,res)=>{
     res.send('working');
 })
