@@ -18,7 +18,7 @@ const database = knex ({
   }
 });
 const app = express();                      
-app.use(cors());
+app.use(cors({credentials:true,origin:true}));
 app.use(bodyparser.json());
   var api = new API({
     access_key: '7e059c1a00cb82b6db65c827f2495f08',
