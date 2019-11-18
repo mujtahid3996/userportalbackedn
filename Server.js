@@ -19,7 +19,7 @@ const database = knex ({
 });
 const app = express();
 app.use(bodyparser.json());                      
-app.use(cors({origin:"https://fast-inlet-83214.herokuapp.com"}));
+app.use(cors({origin:"https://fast-inlet-83214.herokuapp.com",Credential:true}));
   var api = new API({
     access_key: '7e059c1a00cb82b6db65c827f2495f08',
   });
