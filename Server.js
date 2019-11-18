@@ -26,7 +26,7 @@ app.use(cors({origin:"https://fast-inlet-83214.herokuapp.com",Credential:true}))
 app.get('/', ( req,res)=>{
     res.send('working');
 })
-app.post('/Signin',cors({origin:false}),(req,res) => signin.Signin(req,res,bcrypt,database))
+app.post('/Signin',(req,res) => {signin.Signin(req,res,bcrypt,database)})
 app.post('/Register',(req,res) => {register.handleRegister(req,res,database,bcrypt,api)})
 app.post('/Changepassword',(req,res) => {changepassword.Changepassword(req,res,database,bcrypt)})
 app.post('/Adminlogin',(req,res)=>{adminlogin.adminlogin(req,res)})
