@@ -19,6 +19,9 @@ const Signin = (req,res,bcrypt,database) => {
         }
 
     })
+    .catch(err => {
+        res.status(400).json('wrong credentials')
+    })
 }
 module.exports = {
     Signin :Signin
