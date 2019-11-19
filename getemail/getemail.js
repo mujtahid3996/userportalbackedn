@@ -3,8 +3,8 @@ const getemail = (req, res, database) => {
     database.select('email').from('users')
         .where('email', '=', email)
         .then(data => {
-            if (data.email !== '')
-                res.status(400).json('email found')
+            if (data[0])
+                res.status(200).json('email found')
             else {
                 res.status(200).json('emailavailable')
             }
