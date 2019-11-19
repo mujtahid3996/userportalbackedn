@@ -9,6 +9,7 @@ const changepassword =require('./Changepassword/Changpassword')
 const signin = require('./Signin/Signin')
 const adminlogin=require('./AdminLogin/Adminlogin')
 const getusers=require('./Getusers/getusers')
+const getemail =require('./getemail/getemail')
 const database = knex ({
   client: 'pg',
   connection: {
@@ -31,4 +32,5 @@ app.post('/Register',(req,res) => {register.handleRegister(req,res,database,bcry
 app.post('/Changepassword',(req,res) => {changepassword.Changepassword(req,res,database,bcrypt)})
 app.post('/Adminlogin',(req,res)=>{adminlogin.adminlogin(req,res)})
 app.post('/getusers', (req,res) =>{ getusers.getusers(req,res,database)})
+app.get('/getemail',(req,res) => {getemail.getemail(req,res,database)})
 app.listen(process.env.PORT || 3000);
