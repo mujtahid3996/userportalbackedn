@@ -32,5 +32,5 @@ app.post('/Register',(req,res) => {register.handleRegister(req,res,database,bcry
 app.post('/Changepassword',(req,res) => {changepassword.Changepassword(req,res,database,bcrypt)})
 app.post('/Adminlogin',(req,res)=>{adminlogin.adminlogin(req,res)})
 app.post('/getusers', (req,res) =>{ getusers.getusers(req,res,database)})
-app.post('/getemail',(req,res) => {getemail.getemail(req,res,database)})
+app.post('/getemail',(req,res) => {getemail.getemail(req,res,database,api)})
 app.listen(process.env.PORT || 3000);
